@@ -588,24 +588,656 @@ def search_quote_history(search_terms: List[str], limit: int = 5) -> List[Dict]:
 ########################
 ########################
 
+import json
+import re
+from smolagents import ToolCallingAgent, OpenAIServerModel, tool
 
-# Set up and load your env parameters and instantiate your model.
+dotenv.load_dotenv()
+
+model = OpenAIServerModel(
+    model_id=os.getenv("MODEL_ID"),
+    api_key=os.getenv("UDACITY_OPENAI_API_KEY"),
+    api_base="https://openai.vocareum.com/v1",
+)
+
+# Maps common customer phrasing to exact catalog item names.
+CUSTOMER_ITEM_ALIASES = {
+    "a4 glossy paper": "Glossy paper",
+    "glossy a4 paper": "Glossy paper",
+    "a4 glossy": "Glossy paper",
+    "glossy paper": "Glossy paper",
+    "heavy cardstock": "Heavyweight paper",
+    "heavyweight cardstock": "Heavyweight paper",
+    "sturdy cardstock": "Cardstock",
+    "white cardstock": "Cardstock",
+    "cardstock": "Cardstock",
+    "recycled cardstock": "250 gsm cardstock",
+    "colored paper": "Colored paper",
+    "colorful paper": "Colored paper",
+    "colorful cardstock": "Cardstock",
+    "colorful construction paper": "Construction paper",
+    "construction paper": "Construction paper",
+    "colorful poster paper": "Poster paper",
+    "poster paper": "Poster paper",
+    "poster board": "Large poster paper (24x36 inches)",
+    "poster boards": "Large poster paper (24x36 inches)",
+    "a4 paper": "A4 paper",
+    "a4 white paper": "A4 paper",
+    "a4 printer paper": "A4 paper",
+    "a4 printing paper": "A4 paper",
+    "a4 white printer paper": "A4 paper",
+    "a4 matte paper": "Matte paper",
+    "a4 matte": "Matte paper",
+    "a3 glossy paper": "Glossy paper",
+    "a3 matte paper": "Matte paper",
+    "a3 colored paper": "Colored paper",
+    "matte a3 paper": "Matte paper",
+    "glossy a4": "Glossy paper",
+    "standard printer paper": "Standard copy paper",
+    "standard printing paper": "Standard copy paper",
+    "white printer paper": "Standard copy paper",
+    "printer paper": "Standard copy paper",
+    "copy paper": "Standard copy paper",
+    "a4 recycled paper": "Recycled paper",
+    "a4 recycled": "Recycled paper",
+    "recycled paper": "Recycled paper",
+    "kraft paper": "Kraft paper",
+    "envelopes": "Envelopes",
+    "paper napkins": "Paper napkins",
+    "table napkins": "Paper napkins",
+    "paper cups": "Paper cups",
+    "paper plates": "Paper plates",
+    "party streamers": "Party streamers",
+    "streamers": "Party streamers",
+    "washi tape": "Decorative adhesive tape (washi tape)",
+    "decorative washi tape": "Decorative adhesive tape (washi tape)",
+    "flyers": "Flyers",
+    "posters": "Flyers",
+}
 
 
-"""Set up tools for your agents to use, these should be methods that combine the database functions above
- and apply criteria to them to ensure that the flow of the system is correct."""
+def _inventory_item_names() -> List[str]:
+    return pd.read_sql("SELECT item_name FROM inventory", db_engine)["item_name"].tolist()
 
 
-# Tools for inventory agent
+def resolve_item_name(item_name: str) -> tuple:
+    """Resolve a customer item name to an exact inventory catalog name."""
+    inventory_items = _inventory_item_names()
+    cleaned = item_name.strip()
+    if cleaned in inventory_items:
+        return cleaned, ""
+
+    key = cleaned.lower()
+    if key in CUSTOMER_ITEM_ALIASES:
+        candidate = CUSTOMER_ITEM_ALIASES[key]
+        if candidate in inventory_items:
+            return candidate, f"(mapped '{item_name}' to '{candidate}')"
+
+    for alias, catalog_name in CUSTOMER_ITEM_ALIASES.items():
+        if alias in key or key in alias:
+            if catalog_name in inventory_items:
+                return catalog_name, f"(mapped '{item_name}' to '{catalog_name}')"
+
+    for name in inventory_items:
+        if name.lower() == key:
+            return name, ""
+
+    best_match = None
+    best_score = 0
+    query_tokens = set(re.findall(r"[a-z0-9]+", key))
+    for name in inventory_items:
+        name_tokens = set(re.findall(r"[a-z0-9]+", name.lower()))
+        overlap = len(query_tokens & name_tokens)
+        if overlap > best_score:
+            best_score = overlap
+            best_match = name
+
+    if best_match and best_score >= 2:
+        return best_match, f"(matched '{item_name}' to '{best_match}')"
+
+    return None, (
+        f"Unknown item '{item_name}'. Available items: "
+        f"{', '.join(sorted(inventory_items))}"
+    )
 
 
-# Tools for quoting agent
+def bulk_discount_rate(quantity: int) -> float:
+    if quantity >= 1000:
+        return 0.15
+    if quantity >= 500:
+        return 0.10
+    if quantity >= 100:
+        return 0.05
+    return 0.0
 
 
-# Tools for ordering agent
+def _get_unit_price(item_name: str) -> float:
+    row = pd.read_sql(
+        "SELECT unit_price FROM inventory WHERE item_name = :name",
+        db_engine,
+        params={"name": item_name},
+    )
+    if row.empty:
+        for supply in paper_supplies:
+            if supply["item_name"] == item_name:
+                return float(supply["unit_price"])
+        raise ValueError(f"No unit price for {item_name}")
+    return float(row.iloc[0]["unit_price"])
 
 
-# Set up your agents and create an orchestration agent that will manage them.
+# --- Inventory agent tools ---
+
+
+@tool
+def check_item_stock(item_name: str, as_of_date: str) -> str:
+    """
+    Check current stock for one catalog item as of a date.
+
+    Args:
+        item_name: Exact or customer-facing item name.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Stock summary for the item.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    stock_df = get_stock_level(resolved, as_of_date)
+    stock = int(stock_df["current_stock"].iloc[0])
+    min_row = pd.read_sql(
+        "SELECT min_stock_level FROM inventory WHERE item_name = :name",
+        db_engine,
+        params={"name": resolved},
+    )
+    min_stock = int(min_row.iloc[0]["min_stock_level"]) if not min_row.empty else 0
+    return json.dumps(
+        {
+            "item_name": resolved,
+            "current_stock": stock,
+            "min_stock_level": min_stock,
+            "needs_reorder": stock < min_stock,
+            "note": note,
+        }
+    )
+
+
+@tool
+def list_available_inventory(as_of_date: str) -> str:
+    """
+    List all items with positive stock as of a date.
+
+    Args:
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: JSON inventory snapshot.
+    """
+    inventory = get_all_inventory(as_of_date)
+    return json.dumps(inventory, indent=2)
+
+
+@tool
+def check_reorder_needed(item_name: str, as_of_date: str) -> str:
+    """
+    Compare stock to minimum level and suggest reorder quantity.
+
+    Args:
+        item_name: Item to evaluate.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Reorder recommendation.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    stock_df = get_stock_level(resolved, as_of_date)
+    stock = int(stock_df["current_stock"].iloc[0])
+    min_row = pd.read_sql(
+        "SELECT min_stock_level FROM inventory WHERE item_name = :name",
+        db_engine,
+        params={"name": resolved},
+    )
+    min_stock = int(min_row.iloc[0]["min_stock_level"])
+    reorder_qty = max(0, (min_stock * 2) - stock)
+    return json.dumps(
+        {
+            "item_name": resolved,
+            "current_stock": stock,
+            "min_stock_level": min_stock,
+            "reorder_needed": stock < min_stock,
+            "suggested_reorder_quantity": reorder_qty,
+            "note": note,
+        }
+    )
+
+
+@tool
+def place_stock_order(item_name: str, quantity: int, as_of_date: str) -> str:
+    """
+    Place a supplier stock order for an item.
+
+    Args:
+        item_name: Catalog item name.
+        quantity: Units to order from supplier.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Order confirmation.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    unit_price = _get_unit_price(resolved)
+    total_price = quantity * unit_price
+    txn_id = create_transaction(
+        resolved, "stock_orders", quantity, total_price, as_of_date
+    )
+    delivery = get_supplier_delivery_date(as_of_date, quantity)
+    return (
+        f"Stock order placed: {quantity} x {resolved} for ${total_price:.2f}. "
+        f"Transaction ID {txn_id}. Supplier ETA: {delivery}. {note}"
+    )
+
+
+# --- Quoting agent tools ---
+
+
+@tool
+def get_quote_history(search_terms: str, limit: int = 5) -> str:
+    """
+    Search historical quotes by comma-separated keywords.
+
+    Args:
+        search_terms: Comma-separated keywords (e.g. ceremony,glossy).
+        limit: Max records to return.
+
+    Returns:
+        str: JSON list of similar past quotes.
+    """
+    terms = [t.strip() for t in search_terms.split(",") if t.strip()]
+    if not terms:
+        terms = ["paper"]
+    quotes = search_quote_history(terms, limit=limit)
+    return json.dumps(quotes, indent=2, default=str)
+
+
+@tool
+def get_unit_price(item_name: str) -> str:
+    """
+    Get list unit price for a catalog item.
+
+    Args:
+        item_name: Catalog item name.
+
+    Returns:
+        str: Unit price details.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    price = _get_unit_price(resolved)
+    return json.dumps({"item_name": resolved, "unit_price": price, "note": note})
+
+
+@tool
+def calculate_quote(item_name: str, quantity: int, as_of_date: str) -> str:
+    """
+    Calculate a line-item quote with bulk discount tiers.
+
+    Args:
+        item_name: Item to quote.
+        quantity: Requested units.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Quote breakdown with discount explanation.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    unit_price = _get_unit_price(resolved)
+    discount = bulk_discount_rate(quantity)
+    subtotal = quantity * unit_price
+    total = subtotal * (1 - discount)
+    stock_df = get_stock_level(resolved, as_of_date)
+    stock = int(stock_df["current_stock"].iloc[0])
+    return json.dumps(
+        {
+            "item_name": resolved,
+            "quantity": quantity,
+            "unit_price": unit_price,
+            "subtotal": round(subtotal, 2),
+            "discount_rate": discount,
+            "discount_amount": round(subtotal - total, 2),
+            "total": round(total, 2),
+            "current_stock": stock,
+            "in_stock": stock >= quantity,
+            "explanation": (
+                f"{int(discount * 100)}% bulk discount applied for quantity {quantity}."
+                if discount > 0
+                else "No bulk discount for this quantity."
+            ),
+            "note": note,
+        }
+    )
+
+
+# --- Fulfillment agent tools ---
+
+
+@tool
+def get_delivery_timeline(as_of_date: str, quantity: int) -> str:
+    """
+    Estimate supplier delivery date for a quantity.
+
+    Args:
+        as_of_date: Starting ISO date (YYYY-MM-DD).
+        quantity: Units in the shipment.
+
+    Returns:
+        str: Estimated delivery date.
+    """
+    delivery = get_supplier_delivery_date(as_of_date, quantity)
+    return f"Estimated delivery for {quantity} units: {delivery} (from {as_of_date})."
+
+
+@tool
+def check_can_fulfill(item_name: str, quantity: int, as_of_date: str) -> str:
+    """
+    Check whether an order can be fulfilled from current stock.
+
+    Args:
+        item_name: Item to fulfill.
+        quantity: Requested units.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Fulfillment feasibility summary.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    stock = int(get_stock_level(resolved, as_of_date)["current_stock"].iloc[0])
+    cash = get_cash_balance(as_of_date)
+    return json.dumps(
+        {
+            "item_name": resolved,
+            "requested_quantity": quantity,
+            "current_stock": stock,
+            "can_fulfill": stock >= quantity,
+            "cash_balance": cash,
+            "note": note,
+        }
+    )
+
+
+@tool
+def fulfill_order(item_name: str, quantity: int, as_of_date: str) -> str:
+    """
+    Record a sales transaction when stock is sufficient.
+
+    Args:
+        item_name: Item sold.
+        quantity: Units sold.
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Fulfillment result.
+    """
+    resolved, note = resolve_item_name(item_name)
+    if not resolved:
+        return note
+    stock = int(get_stock_level(resolved, as_of_date)["current_stock"].iloc[0])
+    if stock < quantity:
+        shortfall = quantity - stock
+        delivery = get_supplier_delivery_date(as_of_date, shortfall)
+        return (
+            f"Cannot fulfill {quantity} x {resolved}: only {stock} in stock. "
+            f"Shortfall {shortfall}; restock ETA {delivery}. {note}"
+        )
+    unit_price = _get_unit_price(resolved)
+    discount = bulk_discount_rate(quantity)
+    total_price = round(quantity * unit_price * (1 - discount), 2)
+    txn_id = create_transaction(resolved, "sales", quantity, total_price, as_of_date)
+    delivery = get_supplier_delivery_date(as_of_date, quantity)
+    return (
+        f"Order fulfilled: {quantity} x {resolved} for ${total_price:.2f} "
+        f"(transaction {txn_id}). Estimated delivery: {delivery}. {note}"
+    )
+
+
+@tool
+def get_cash_on_hand(as_of_date: str) -> str:
+    """
+    Return company cash balance as of a date.
+
+    Args:
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: Cash balance message.
+    """
+    cash = get_cash_balance(as_of_date)
+    return f"Cash balance as of {as_of_date}: ${cash:,.2f}"
+
+
+@tool
+def get_financial_snapshot(as_of_date: str) -> str:
+    """
+    Generate a financial report snapshot as of a date.
+
+    Args:
+        as_of_date: ISO date (YYYY-MM-DD).
+
+    Returns:
+        str: JSON financial report.
+    """
+    report = generate_financial_report(as_of_date)
+    return json.dumps(report, indent=2, default=str)
+
+
+# --- Specialist agents ---
+
+
+class InventoryAgent(ToolCallingAgent):
+    """Checks stock levels and places supplier reorders."""
+
+    def __init__(self, model_to_use: OpenAIServerModel):
+        super().__init__(
+            tools=[
+                check_item_stock,
+                list_available_inventory,
+                check_reorder_needed,
+                place_stock_order,
+            ],
+            model=model_to_use,
+            name="inventory_agent",
+            description="Inventory specialist for stock checks and reorders.",
+        )
+
+    def handle_request(self, request: str, as_of_date: str) -> str:
+        self.memory.steps = []
+        prompt = f"""
+        You are the Munder Difflin inventory specialist.
+        Request date (use as as_of_date in every tool call): {as_of_date}
+        Task: {request}
+        Use exact catalog item names from tool outputs. Summarize stock and reorder actions clearly.
+        """
+        return str(self.run(prompt))
+
+
+class QuotingAgent(ToolCallingAgent):
+    """Generates competitive quotes with bulk discounts."""
+
+    def __init__(self, model_to_use: OpenAIServerModel):
+        super().__init__(
+            tools=[get_quote_history, get_unit_price, calculate_quote],
+            model=model_to_use,
+            name="quoting_agent",
+            description="Quoting specialist for prices and historical context.",
+        )
+
+    def handle_request(self, request: str, as_of_date: str) -> str:
+        self.memory.steps = []
+        prompt = f"""
+        You are the Munder Difflin quoting specialist.
+        Request date (use as as_of_date in calculate_quote): {as_of_date}
+        Task: {request}
+        Search quote history with relevant keywords. Apply bulk discounts via calculate_quote.
+        Explain pricing clearly for the orchestrator.
+        """
+        return str(self.run(prompt))
+
+
+class FulfillmentAgent(ToolCallingAgent):
+    """Validates and records customer orders."""
+
+    def __init__(self, model_to_use: OpenAIServerModel):
+        super().__init__(
+            tools=[
+                get_delivery_timeline,
+                check_can_fulfill,
+                fulfill_order,
+                get_cash_on_hand,
+            ],
+            model=model_to_use,
+            name="fulfillment_agent",
+            description="Fulfillment specialist for order processing.",
+        )
+
+    def handle_request(self, request: str, as_of_date: str) -> str:
+        self.memory.steps = []
+        prompt = f"""
+        You are the Munder Difflin fulfillment specialist.
+        Request date (use as as_of_date in every tool call): {as_of_date}
+        Task: {request}
+        Check stock before fulfilling. Use fulfill_order only when stock is sufficient.
+        """
+        return str(self.run(prompt))
+
+
+class Orchestrator(ToolCallingAgent):
+    """Coordinates inventory, quoting, and fulfillment specialists."""
+
+    def __init__(self, model_to_use: OpenAIServerModel):
+        self.inventory_agent = InventoryAgent(model_to_use)
+        self.quoting_agent = QuotingAgent(model_to_use)
+        self.fulfillment_agent = FulfillmentAgent(model_to_use)
+
+        inventory = self.inventory_agent
+        quoting = self.quoting_agent
+        fulfillment = self.fulfillment_agent
+
+        @tool
+        def consult_inventory_agent(task: str, as_of_date: str) -> str:
+            """
+            Delegate inventory or stock questions to the inventory specialist.
+
+            Args:
+                task: What to check or reorder.
+                as_of_date: ISO date (YYYY-MM-DD).
+
+            Returns:
+                str: Inventory specialist response.
+            """
+            return inventory.handle_request(task, as_of_date)
+
+        @tool
+        def consult_quoting_agent(task: str, as_of_date: str) -> str:
+            """
+            Delegate pricing or quote requests to the quoting specialist.
+
+            Args:
+                task: Quote details to price.
+                as_of_date: ISO date (YYYY-MM-DD).
+
+            Returns:
+                str: Quoting specialist response.
+            """
+            return quoting.handle_request(task, as_of_date)
+
+        @tool
+        def consult_fulfillment_agent(task: str, as_of_date: str) -> str:
+            """
+            Delegate order fulfillment to the fulfillment specialist.
+
+            Args:
+                task: Order lines to fulfill.
+                as_of_date: ISO date (YYYY-MM-DD).
+
+            Returns:
+                str: Fulfillment specialist response.
+            """
+            return fulfillment.handle_request(task, as_of_date)
+
+        super().__init__(
+            tools=[
+                consult_inventory_agent,
+                consult_quoting_agent,
+                consult_fulfillment_agent,
+                get_financial_snapshot,
+            ],
+            model=model_to_use,
+            name="orchestrator",
+            description="Customer-facing coordinator for Munder Difflin.",
+        )
+
+    def _extract_final_answer(self) -> str:
+        for step in reversed(self.memory.steps):
+            if hasattr(step, "tool_calls") and step.tool_calls:
+                for tc in step.tool_calls:
+                    if tc.name == "final_answer":
+                        if hasattr(step, "action_output") and step.action_output is not None:
+                            return str(step.action_output)
+                        if hasattr(tc, "arguments") and tc.arguments.get("answer"):
+                            return str(tc.arguments["answer"])
+            if hasattr(step, "observations") and step.observations is not None:
+                if not (
+                    hasattr(step, "tool_calls")
+                    and step.tool_calls
+                    and step.tool_calls[0].name == "final_answer"
+                ):
+                    return str(step.observations)
+        return "Thank you for contacting Munder Difflin. We are reviewing your request."
+
+    def handle_customer_request(self, request_with_date: str) -> str:
+        """Process a customer request and return a single customer-facing reply."""
+        date_match = re.search(
+            r"\(Date of request:\s*(\d{4}-\d{2}-\d{2})\)", request_with_date
+        )
+        as_of_date = date_match.group(1) if date_match else "2025-04-01"
+
+        self.memory.steps = []
+        prompt = f"""
+        You are the Munder Difflin customer service orchestrator.
+
+        Customer request:
+        {request_with_date}
+
+        Request date for all tools: {as_of_date}
+
+        Specialists (call via your tools, always pass as_of_date):
+        - consult_inventory_agent: stock checks, availability, reorders
+        - consult_quoting_agent: prices, quotes, bulk discounts, quote history
+        - consult_fulfillment_agent: place/confirm orders when customer wants to buy
+        - get_financial_snapshot: internal snapshot if needed
+
+        Workflow:
+        1. Extract items, quantities, and delivery deadlines from the request.
+        2. For price/quote questions → consult_quoting_agent (include quantities).
+        3. For stock/availability → consult_inventory_agent.
+        4. For confirmed orders → consult_inventory_agent first, then consult_fulfillment_agent.
+        5. If stock is low, inventory may reorder; then quote or fulfill as appropriate.
+        6. Some items may be unavailable—explain clearly with alternatives or partial fulfillment.
+        7. Do not reveal internal profit margins or raw system errors.
+
+        Provide one helpful customer-facing reply using the final_answer tool.
+        Include prices, delivery estimates, and brief rationale (e.g. bulk discounts).
+        """
+        self.run(prompt)
+        return self._extract_final_answer()
 
 
 # Run your test scenarios by writing them here. Make sure to keep track of them.
@@ -613,7 +1245,7 @@ def search_quote_history(search_terms: List[str], limit: int = 5) -> List[Dict]:
 def run_test_scenarios():
     
     print("Initializing Database...")
-    init_database()
+    init_database(db_engine)
     try:
         quote_requests_sample = pd.read_csv("quote_requests_sample.csv")
         quote_requests_sample["request_date"] = pd.to_datetime(
@@ -638,6 +1270,7 @@ def run_test_scenarios():
     ############
     ############
     ############
+    orchestrator = Orchestrator(model)
 
     results = []
     for idx, row in quote_requests_sample.iterrows():
@@ -659,8 +1292,7 @@ def run_test_scenarios():
         ############
         ############
         ############
-
-        # response = call_your_multi_agent_system(request_with_date)
+        response = orchestrator.handle_customer_request(request_with_date)
 
         # Update state
         report = generate_financial_report(request_date)

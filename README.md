@@ -35,33 +35,43 @@ All the files have been provided in the VS Code workspace on the Udacity platfor
 
 1. Install dependencies
 
-Make sure you have Python 3.8+ installed.
+This project uses [uv](https://docs.astral.sh/uv/) for Python and package management (Python 3.12+).
 
-You can install all required packages using the provided requirements.txt file:
+Install dependencies from `pyproject.toml`:
 
-`pip install -r requirements.txt`
+```bash
+uv sync
+```
 
-If you're using smolagents, install it separately:
+To add packages later:
 
-`pip install smolagents`
-
-For other options like pydantic-ai or npcsh[lite], refer to their documentation.
+```bash
+uv add <package-name>
+```
 
 2. Create .env File
 
-Add your OpenAI-compatible API key:
+Copy the example and add your API key:
 
-`UDACITY_OPENAI_API_KEY=your_openai_key_here`
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set `UDACITY_OPENAI_API_KEY` to your Vocareum key.
 
 This project uses a custom OpenAI-compatible proxy hosted at https://openai.vocareum.com/v1.
 
 ## How to Run the Project
 
-Start by defining your agents in the `"YOUR MULTI AGENT STARTS HERE"` section inside `template.py`. Once your agent team is ready:
+Start by defining your agents in the `"YOUR MULTI AGENT STARTS HERE"` section inside `project_starter.py`. Once your agent team is ready:
 
-1. Run the `run_test_scenarios()` function at the bottom of the script.
-2. This will simulate a series of customer requests.
-3. Your system should respond by coordinating inventory checks, generating quotes, and processing orders.
+```bash
+uv run python project_starter.py
+```
+
+This runs `run_test_scenarios()`, which simulates customer requests and writes `test_results.csv`. Your system should coordinate inventory checks, generate quotes, and process orders.
+
+For architecture, evaluation summary, and improvement ideas, see **[DESIGN_NOTES.md](./DESIGN_NOTES.md)**.
 
 Output will include:
 
@@ -86,9 +96,9 @@ Output will include:
 
 Make sure to submit the following files:
 
-1. Your completed `template.py` or `project_starter.py` with all agent logic
-2. A **workflow diagram** describing your agent architecture and data flow
-3. A `README.txt` or `design_notes.txt` explaining how your system works
-4. Outputs from your test run (like `test_results.csv`)
+1. Your completed `project_starter.py` with all agent logic
+2. A **workflow diagram** (`implementation_diagram.mmd` / `.png`)
+3. **DESIGN_NOTES.md** — system explanation, evaluation, and improvements
+4. Outputs from your test run (`test_results.csv`)
 
 ---
