@@ -1,410 +1,383 @@
 request_id,request_date,cash_balance,inventory_value,response
-1,2025-04-01,45116.7,4880.3,"Dear Customer,
+1,2025-04-01,45121.45,4875.3,"Dear Customer,
 
-Thank you for your request for paper supplies for the ceremony. We have successfully fulfilled your order for:
+Thank you for your request! We have successfully processed your order for the ceremony supplies:
 
-- **200 sheets of A4 glossy paper**
-- **100 sheets of heavy cardstock (white)**
-- **100 sheets of colored paper (assorted colors)**
+1. **A4 Glossy Paper** (200 sheets) - Total: **$38.00**
+   - Delivery Date: April 5, 2025
 
-### Order Details:
-1. **200 sheets of A4 glossy paper**: Available and will be delivered by **April 2, 2025**.
-2. **100 sheets of heavy cardstock (white)**: Available and will be delivered by **April 2, 2025**.
-3. **100 sheets of colored paper (assorted colors)**: Delivered and estimated delivery was on **April 2, 2025**.
+2. **Heavy Cardstock (White)** (100 sheets) - Total: **$14.25**
+   - Delivery Date: April 2, 2025
 
-### Prices:
-- Total for **200 sheets of A4 glossy paper**: **Price to be confirmed** (awaiting quote details)
-- Total for **100 sheets of heavy cardstock**: **$14.25**
-- Total for **100 sheets of colored paper**: **$9.50**
+3. **Colored Paper (Assorted Colors)** (100 sheets) - Total: **$9.50**
+   - Delivery Date: April 2, 2025
 
-### Total Cost:
-- The total amount for your current order (without A4 glossy paper cost) is **$23.75**.
+**Grand Total for all items: $61.75**
 
-Thank you for choosing us for your paper supply needs. Should you have any more questions or require further assistance, please feel free to reach out.
+All items are in stock, and we are pleased to confirm that they will arrive by the respective delivery dates. If you have any further questions or need assistance, please feel free to reach out.
+
+Thank you for choosing us for your paper supply needs!
 
 Best Regards,
+Munder Difflin Customer Service"
+2,2025-04-03,45909.95,4045.2999999999997,"We could not complete the full order because some items are out of stock or unavailable. Thank you for your order! Here is a summary:
 
-Munder Difflin Customer Service Team"
-2,2025-04-03,45566.7,4380.3,"Dear Customer,
+1. **500 sheets of colorful poster paper**: Unfortunately, we cannot fulfill this order at this time due to insufficient stock. 
 
-Thank you for your order. Here is the summary of your requested items:
+2. **300 rolls of streamers**: This order has been processed! Estimated delivery date: **April 7, 2025**.
 
-1. **Large Poster Paper (24x36 inches)**
-   - Quantity: 500 sheets
-   - Total: $450.00
-   - Estimated Delivery: April 7, 2025
+3. **200 balloons**: Unfortunately, balloons are not available in our catalog. 
 
-Unfortunately, the following items were not available:
-- **Streamers** (300 rolls)
-- **Balloons** (200)
+4. **Crepe Paper (200 units)**: We could not fulfill this order due to insufficient stock (only 34 units available). 
 
-We have fulfilled your order for the large poster paper only. If you would like to place a new order for the streamers and balloons or explore alternative options, please let us know.
+5. **Colored Paper (200 units)**: This order has been processed! Estimated delivery date: **April 7, 2025**.
 
-Thank you for choosing Munder Difflin! 
+If you would like alternatives for the crepe paper or colorful poster paper, please let us know! Thank you for choosing Munder Difflin!"
+3,2025-04-04,45913.05999999999,4040.0,"Thank you for your order! Here’s the summary of your request:
+
+1. **A4 Paper**: Unfortunately, we are unable to fulfill the order for 10,000 sheets due to insufficient stock. We can provide **272 sheets** of A4 paper.
+
+2. **A3 Paper**: This item could not be found in our inventory, so we cannot fulfill this part of your request.
+
+3. **Printer Paper**: We can fulfill **500 sheets** of printer paper with an estimated delivery by **April 8, 2025**.
+
+4. **Colored Paper**: Your order for **198 sheets** has been fulfilled with an estimated delivery by **April 8, 2025**.
+
+5. **Crepe Paper**: A partial order for **374 sheets** has been fulfilled, with delivery expected by **April 8, 2025**.
+
+**Total Cost:**
+- A4 Paper (272 sheets): $22.50 (not fulfilled)
+- Printer Paper (500 sheets): $22.50
+- Colored Paper (198 sheets): $88.95
+- Crepe Paper (374 sheets): $251.50
+
+**Overall Amount Due:** $425.00
+
+Please let us know if you would like to adjust your order or explore other options for A4 and A3 paper."
+4,2025-04-05,45891.01999999999,4060.7999999999997,"Thank you for your order! Here are the details: 
+
+1. **A4 Size Printer Paper**: You've ordered 250 sheets. 
+   - **Total Cost**: $11.88 (after a 5% bulk discount). 
+   - **Estimated Delivery**: April 9, 2025. 
+
+2. **High-Quality Recycled Cardstock**: You've ordered 500 sheets in various colors. 
+   - **Total Cost**: $67.50 (after a 10% bulk discount). 
+   - **Your order is confirmed and will be processed as per your request date of April 5, 2025.** 
+
+Both items are being processed and will arrive shortly! If you have further questions, feel free to ask."
+5,2025-04-05,45891.01999999999,4060.7999999999997,"Dear Customer,
+
+Thank you for your order request! Here's a summary of the items:
+
+1. **Colored Paper (500 sheets)** 
+   - **Total Price:** $45.00 (out of stock; only 286 sheets available)
+   - **Bulk Discount:** 10% applied.
+   - **Alternatives:** Unfortunately, we cannot fulfill this item in full as it's currently out of stock. We can provide the 286 sheets available, if you'd like.
+
+2. **Cardstock (300 sheets)** 
+   - **Total Price:** $42.75 (in stock)
+   - **Bulk Discount:** 5% applied. This item can be fulfilled completely.
+
+3. **Cover Stock (200 sheets)** 
+   - **Total Price:** $95.00 (in stock)
+   - **Bulk Discount:** 5% applied. This item can also be fulfilled completely.
+
+Unfortunately, the **200 rolls of decorative washi tape** you requested are currently not available in our inventory. We cannot fulfill this item at this time.
+
+### Overall Total:
+**$182.75** (if you choose to proceed with the available items)
+
+For the colored paper, please let us know if you would like to go ahead with the available 286 sheets, or if you prefer to adjust your order. The remaining items (cardstock and cover stock) can be confirmed for delivery by April 15, 2025.
+
+Thank you for choosing Munder Difflin!"
+6,2025-04-06,45907.020000000004,4043.2999999999997,"Dear Customer,
+
+Thank you for your order request! Here's the summary of your order:
+
+1. **Colorful Construction Paper** (500 sheets):
+   - **Out of Stock**: Unfortunately, we cannot fulfill this part of your order at this time. We recommend considering a different type of colored paper or reducing the quantity for future orders.
+
+2. **White Printer Paper** (300 sheets):
+   - **Fulfilled**: 30 sheets have been ordered, with an estimated delivery by **April 12, 2025**. 
+   - **Price**: $14.25 (after bulk discount applied).
+
+3. **Cardstock** (200 sheets):
+   - **Fulfilled**: This will be delivered on **April 10, 2025**.
+   - **Price**: $28.50 (after bulk discount applied).
+
+### Total Summary:
+- **Total for items fulfilled (excluding colorful paper)**: **$14.25 (A4 Paper) + $28.50 (Cardstock) = $42.75**
+
+Please let us know if you'd like to revise your order for colorful construction paper or need assistance with anything else. We're here to help!
 
 Best regards,
-Munder Difflin Customer Service"
-3,2025-04-04,45566.7,4380.3,"Dear Customer,
+Munder Diffllin Customer Service"
+7,2025-04-07,45907.020000000004,4043.2999999999997,"Dear Customer,
 
-Thank you for your order request for the upcoming conference on April 15, 2025. Here are the details regarding your order:
+Thank you for your order request for the upcoming exhibition! Here’s a summary of the supplies you ordered:
 
-1. **A4 Paper (10,000 sheets)**:
-   - **Total Cost:** $425.00 (after a 15% bulk discount)
-   - **Availability:** Currently out of stock.
+1. **500 sheets of glossy A4 paper**
+   - **Quote**: Unable to fulfill at this time as we currently have only 387 sheets in stock. The total cost, if available, would be $90.00 with a 10% bulk discount applied.
 
-2. **A3 Paper (5,000 sheets)**:
-   - **Availability:** Not available at this time. 
-   - **Alternative:** Please consider using A4 sheets for your needs.
+2. **1000 sheets of matte A3 paper**
+   - **Quote**: Pending. We will provide details shortly.
 
-3. **Printer Paper (500 reams)**:
-   - **Total Cost:** $22.50 (after a 10% bulk discount)
-   - **Availability:** Currently out of stock.
+3. **300 poster boards (24"" x 36"")**
+   - **Quote**: $285.00 (includes bulk discount of 5%). Currently, we have ample stock (699 units) to fulfill this request.
 
-Due to the current stock status, we are unable to fulfill your complete order as requested. For the A3 paper and printer paper, I recommend either selecting alternative products or adjusting the quantity of the A4 paper if that can accommodate your needs.
+4. **200 sheets of heavyweight cardstock**
+   - **Quote**: $28.50 (includes bulk discount of 5%). We have sufficient stock (295 units) to fulfill this request.
 
-Please let us know how you'd like to proceed with your order, and we will prioritize your request to ensure you have the necessary supplies for your conference.
+Unfortunately, we cannot fulfill the order for glossy A4 paper at this moment due to stock constraints. You may consider adjusting that order. 
 
-Best regards,
-Munder Difflin Customer Service"
-4,2025-04-05,45578.579999999994,4367.8,"Dear Customer,
-
-Thank you for your order request for high-quality, recycled cardstock and A4 size printer paper for your reception. Here’s the update regarding your order:
-
-1. **A4 Size Printer Paper**: 
-   - **Quantity**: 250 sheets  
-   - **Total Cost**: $11.88 
-     - (Unit Price: $0.05 per sheet, original subtotal $12.50 with a 5% bulk discount applied)
-   - **Status**: Order fulfilled successfully, to be delivered by April 15, 2025.
-
-2. **High-Quality, Recycled Cardstock**: 
-   - **Quantity**: 500 sheets  
-   - **Total Cost**: $67.50 (including a 10% bulk discount on the unit price of $0.15)
-   - **Status**: Unfortunately, we were unable to fulfill this part of your order as we only have 395 sheets available in stock, which is below your requested quantity. 
-
-As an alternative, we can fulfill a partial order of 395 sheets of recycled cardstock at a total cost of $59.25 if you'd like to proceed with that option. Please let us know how you would like to proceed regarding the cardstock.
-
-Best regards,
-Munder Difflin Customer Service"
-5,2025-04-05,45578.579999999994,4367.8,"Thank you for your order request! Here's a summary of your supplies and their availability:
-
-1. **8.5"" x 11"" Colored Paper (500 sheets)**: Available stock is 488 sheets. The unit price is $0.10 per sheet, leading to a subtotal of $50.00. With a 10% bulk discount applied for the quantity, your total is **$45.00**.
-
-2. **Cardstock in Various Colors (300 sheets)**: Available stock is 395 sheets. The unit price is $0.15 per sheet, resulting in a subtotal of $45.00. After applying a 5% bulk discount, your total is **$42.75**.
-
-3. **Decorative Washi Tape (200 rolls)**: Unfortunately, this item is not found in our inventory. Please let us know if you would like to select an alternative item.
-
-Your total for the available items is **$87.75**. 
-
-Since you require delivery by April 15, 2025, we can proceed to finalize this order, excluding the decorative washi tape. Please confirm if this is acceptable!"
-6,2025-04-06,45579.009999999995,4365.25,"Dear Customer,
-
-Thank you for your order! Here are the details:
-
-1. **Cardstock (200 sheets)**
-   - Total: $28.50  
-   - Status: Successfully fulfilled 
-
-2. **A4 Printer Paper (300 sheets)** 
-   - Status: Out of stock. We have ordered an additional 248 sheets, which will arrive by **April 10, 2025**. 
-   - Note: Only 22 sheets were available, and we've placed a reorder.
-   - Total for 248 sheets (after discounts): $14.25 yet to be fulfilled after restock.
-
-3. **Colored Construction Paper (500 sheets)**
-   - Status: Out of stock. Alternative paper (1 sheet of your requested color) has been fulfilled.
-   - We suggest considering alternative options such as:
-     - 100 lb cover stock: 636 units available
-     - 80 lb text paper: 249 units available
-     - Banner paper: 793 units available
-     - Glossy paper: 587 units available
-
-Your assembly supplies are crucial, and we have taken immediate action to ensure you receive the necessary items as quickly as possible. Thank you for choosing Munder Difflin!
+Please confirm whether you would like to proceed with the available items and any adjustments needed for the glossy A4 paper. We look forward to your response!
 
 Best regards,
 Munder Difflin Customer Service."
-7,2025-04-07,45886.56,4036.25,"Dear Customer,
+8,2025-04-07,45881.310000000005,4043.2999999999997,"Dear Customer,
 
-Thank you for your order placed on April 7, 2025, for paper supplies for your upcoming exhibition. Here are the details of your order:
+Thank you for your order! Here’s a summary of your request and the current status:
 
-1. **Glossy A4 Paper** (500 sheets): **$90.00**
-2. **Heavyweight Cardstock** (200 sheets): **$28.50**
-3. **Poster Boards (24"" x 36"")** (199 boards): **$285.00**
+1. **A5 Colored Paper**: 
+   - **Quantity Ordered**: 2000 sheets 
+   - **Total Cost**: $170.00 (after 15% bulk discount)
+   - **Status**: Successfully fulfilled and shipped. Estimated delivery date: **April 14, 2025**.
 
-**Total Amount:** **$403.50**
-
-Your order has been successfully fulfilled, and the estimated delivery date is April 11, 2025.
-
-Please note that the order for **270 sheets of matte A3 paper** could not be fulfilled as it was not available in stock. We recommend considering a different product or adjusting your quantity if needed.
-
-If you have any further questions or need assistance, feel free to reach out!
-
-Best regards,
-Munder Difflin Customer Service"
-8,2025-04-07,45866.59,4045.75,"Dear Customer,
-
-Thank you for your order of paper supplies for your upcoming ceremony! Here is a summary of your order, delivery schedule, and pricing details:
-
-**Items Ordered:**
-- 500 sheets of A4 Glossy Paper: **$90.00** (Total delivered by April 11, 2025)
-- 1000 sheets of A4 Matte Paper: **$42.50** (Only 190 sheets delivered by April 11, 2025; shortfall of 730 sheets)
-- 2000 sheets of A5 Colored Paper: **$170.00** (Only 52 sheets delivered by April 8, 2025; shortfall of 1513 sheets)
-- 3000 sheets of A4 Recycled Paper: **$127.50** (No sheets delivered; shortfall of 2730 sheets)
-
-**Total Amount for Fulfilled Items:** $90.00 + $42.50 + $170.00 = **$302.50**
-
-**Delivery Schedule:**
-- A4 Glossy Paper: Delivered by April 11, 2025
-- A4 Matte Paper: 190 sheets delivered by April 11, 2025 (remaining 730 sheets are pending)
-- A5 Colored Paper: 52 sheets delivered by April 8, 2025 (remaining 1513 sheets are pending)
-- A4 Recycled Paper: No delivery (remaining 2730 sheets are pending)
-
-**Next Steps:** It appears there is a significant shortfall on the A4 Matte Paper, A5 Colored Paper, and A4 Recycled Paper. We can place a reorder for these remaining quantities, or we can explore alternative options. 
-
-Please let us know how you would like to proceed,
-
-Best Regards,
-Munder Difflin Customer Service Team"
-9,2025-04-07,45891.09,4020.25,"Thank you for your order! Here’s a summary of your request for paper supplies:
-
-1. **200 sheets of A4 white printer paper**:
-   - **Quote**: $9.50 after a 5% bulk discount. Note that only 80 sheets are currently in stock, so 190 sheets have been ordered, expected to arrive by **April 11, 2025**.
-
-2. **100 sheets of A3 glossy paper**:
-   - **Quote**: $19.00 after a 5% bulk discount.
-   - **Availability**: In stock and can be delivered by **April 10, 2025**.
-
-3. **50 packets of 100% recycled kraft paper envelopes**:
-   - **Quote**: $5.00, with successful fulfillment.
-   - **Delivery Date**: Expected by **April 8, 2025**.
-
-Your total cost for the order now amounts to **$33.50** including the quoted items. Thank you for choosing Munder Difflin!"
-13,2025-04-08,45889.59,4020.25,"Dear Customer,
-
-Thank you for your order! Here are the details of your supplies for the upcoming gathering:
-
-1. **A4 Printing Paper**:
-   - Quantity: 500 sheets
-   - Total after discounts: **$22.50**
-   - Available stock: 270 sheets
-   - Delivery date: **April 10, 2025**
-
-2. **Cardstock**:
-   - Quantity: 200 sheets
-   - Total after discounts: **$28.50**
-   - Additional stock ordered: 200 sheets
-   - Estimated delivery date: **April 12, 2025**
-
-**Overall Grand Total**: **$51.00**
-
-Please note that A4 Printing Paper will be delivered by April 10, and the cardstock is already fulfilled and will arrive by April 12. Let us know if you need any further assistance!
-
-Best regards,
-Munder Difflin Customer Service"
-12,2025-04-08,45853.84,4054.75,"Thank you for your order! Here's a summary of what we have arranged for your upcoming party:
-
-1. **Cardstock** (100 sheets):
-   - Total (after 5% discount): **$14.25**
-   - Estimated delivery: April 9, 2025.
-
-2. **Paper Plates** (100 units):
-   - Total (after 5% discount): **$9.50**
-   - Estimated delivery: April 9, 2025.
-
-3. **Table Cover** (1 unit):
-   - Total: **$1.50**
-   - Estimated delivery: April 8, 2025.
-
-**Grand Total for the order**: $14.25 (Cardstock) + $9.50 (Paper Plates) + $1.50 (Table Cover) = **$25.25**.
-
-Please note that the paper napkins are currently out of stock. However, we have successfully fulfilled your order for the other items, which will be delivered by April 9, 2025. If you need further assistance or wish to reorder paper napkins later, don't hesitate to reach out!"
-10,2025-04-08,45859.38999999999,4046.95,"Dear Customer,
-
-Thank you for your order request! We have successfully processed your request for:
-
-- **300 sheets of sturdy cardstock** which will be delivered by **April 12, 2025**. The total price for this item is **$42.75** after applying the bulk discount.
-
-However, we are unable to fulfill the order for **500 sheets of high-quality glossy paper** at this time, as we currently have only **294 sheets available**. The estimated restock date for glossy paper is **April 12, 2025**.
-
-The pricing details for the glossy paper (if available) are as follows:
-- **Unit Price:** $0.20 per sheet 
-- **Subtotal:** $100.00 for 500 sheets
-- **Discount:** 10% bulk discount of $10.00
-- **Total Price after Discount:** $90.00 
-
-We can revise your order for the glossy paper once we receive the new stock. Please let us know if you'd like to adjust your order or if there is anything else we can assist you with.
-
-Best,
-Munder Difflin Customer Service"
-11,2025-04-08,45859.38999999999,4046.95,"Thank you for your order request. Here are the details regarding the stock and the fulfillment:
-
-1. **A3 Glossy Paper**:
-   - Requested: 500 sheets
-   - Current Stock: 294 sheets (Insufficient stock to fulfill the entire order)
-   - Available Quantity: 294 sheets
-   - Remaining Required: 206 sheets
-   - Suggested Solution: We can fulfill 294 sheets of A3 glossy paper now.
-
-2. **A4 Matte Paper**:
-   - Requested: 300 sheets
-   - Current Stock: 270 sheets (Insufficient stock to fulfill the entire order)
-   - Available Quantity: 270 sheets
-   - Remaining Required: 30 sheets
-   - Suggested Solution: We can fulfill 270 sheets of A4 matte paper now.
-
-### Summary:
-- **Total Cost for A3 glossy paper (294 sheets)**: $58.80 after discount
-- **Total Cost for A4 matte paper (270 sheets)**: $14.25 after discount
-
-### Total for fulfilled items: $73.05
-
-Unfortunately, we cannot fulfill your entire order at this time because of stock limitations. Please let us know if you would like to proceed with the partial fulfillment or if you need to make any adjustments to your order!"
-14,2025-04-09,45783.67999999999,4121.55,"Dear Customer,\n\nThank you for your order request for high-quality paper supplies! Here is the summary of your order, including pricing and availability:\n\n1. **A4 Paper**: 5000 sheets requested\n   - Available: 270 sheets\n   - Fulfilled: 270 sheets\n   - Remaining Shortage: 4730 sheets\n   - **Total Cost for Fulfilled A4 Paper: $212.50**\n\n2. **Large Poster Paper (24x36 inches)**: 2000 sheets requested\n   - Available: 0 sheets\n   - Reorder: 89 sheets placed (ETA: 2025-04-10)\n   - Remaining Shortage: 2000 sheets\n   - **Total Cost for Large Poster Paper: $1700.00**\n\n3. **Cardstock**: 500 sheets requested\n   - Available: 148 sheets\n   - Fulfilled: 148 sheets\n   - Shortage: 404 sheets (ETA: 2025-04-13)\n   - **Total Cost for Fulfilled Cardstock: $67.50**\n\n### Summary of Costs:\n- Total for A4 Paper (Fulfilled): $212.50\n- Total for Large Poster Paper (Unfulfilled): $1700.00\n- Total for Cardstock (Fulfilled): $67.50\n\n### Grand Total for Fulfilled Items: **$280.00**\n\nUnfortunately, the large poster paper is currently unavailable, and we can only fulfill part of your order. The rest of the items will be delivered as they become available:  \n- Remaining A4 Paper can be fulfilled in the next order, and 404 sheets of cardstock will be delivered by April 13, 2025.\n\nIf you have any alternate requests for the poster paper or if you would like to split your orders, please let us know! Thank you for your understanding."
-15,2025-04-12,46002.17999999999,3883.6499999999996,"Dear Customer,
-
-Thank you for your order request for high-quality paper supplies. Here’s the summary of your request and the current order status:
-
-1. **10,000 sheets of A4 White Paper** 
-   - **Order Status**: Not yet fulfilled.
-   - **Estimated Cost**: TBD (will check pricing soon).
-
-2. **5,000 sheets of A3 Colored Paper (Assorted Colors)** 
-   - **Current Stock**: 435 sheets available, reorder required for an additional 4,565 sheets. Unfortunately, we cannot fulfill this part of your order due to insufficient stock. 
-   - **Alternative Options**: Please consider choosing a different type of colored paper or reduce the quantity.
-
-3. **500 Reams of Banner Paper** (alternative for signage)
-   - **Order Status**: Partially fulfilled. 293 reams have been delivered, with the remaining 207 reams expected by April 16, 2025. 
-   - **Total Cost**: $135.00 (after bulk discount).
-
-To proceed with your order or adjustments, please respond with any changes or confirmations you wish to make. 
-
-Thank you,
-Munder Difflin Customer Service"
-16,2025-04-13,46021.17999999999,3863.6499999999996,"Dear Customer,
-
-Thank you for your order request! Here are the details:
-
-1. **A4 Printer Paper** (500 sheets):
-   - While we currently have 270 sheets in stock, we regret to inform you that we cannot fulfill the full order. The expected restock date is April 17, 2025.
+2. **A4 Matte Paper**: 
+   - **Quantity Ordered**: 1000 sheets 
+   - **Status**: Unable to fulfill due to insufficient stock. Current stock is 270 sheets and next restock expected by **April 11, 2025**.
    
-2. **Colorful Construction Paper** (200 sheets):
-   - Total Price: $19.00 (after bulk discount)
-   - Delivery Date: April 17, 2025
-   
-3. **Poster Board** (100 sheets):
-   - Unfortunately, we have only 89 sheets in stock. The expected restock date is April 14, 2025, and we cannot fulfill this part of the order at this time.
+3. **A4 Glossy Paper**: 
+   - **Quantity Ordered**: 500 sheets 
+   - **Status**: Unable to fulfill due to insufficient stock.
 
-**Total Available Stock:**
-- **A4 Paper:** 270 sheets
-- **Colorful Construction Paper:** 200 sheets available (will be fully delivered)
-- **Large Poster Paper:** 89 sheets available
+Unfortunately, we can only fulfill the order for A5 colored paper at this time. We recommend checking back after April 11, 2025, for A4 matte and glossy papers. Let us know if you would like to place a new order or if you have any additional questions.
 
-If you'd like to proceed with the order for the colorful construction paper, please let us know. Alternatively, we can assist you with adjusting your order or provide suggestions for similar items that are available.
-
-Thank you for your understanding, and we look forward to serving you!
+Thank you for choosing Munder Diffllin!
 
 Best regards,
+Customer Service Team"
+9,2025-04-07,45909.810000000005,4013.2999999999997,"Thank you for your order! Here's a summary of what you've purchased:
 
-Munder Difflin Customer Service"
-17,2025-04-14,46309.68,3540.1499999999996,"Dear Customer,
+- **200 sheets of A4 white printer paper**
+  - Price: $9.50 (including 5% bulk discount)
+  - Estimated delivery: April 11, 2025
 
-Thank you for your order request for your upcoming reception on April 15, 2025. Here is a summary of your order status:
+- **100 sheets of A3 glossy paper**
+  - Price: $19.00 (including 5% bulk discount)
+  - Estimated delivery: April 8, 2025
 
-1. **A4 White Printer Paper**: 
-   - **Requested**: 1000 sheets 
-   - **Current Stock**: 270 sheets (Insufficient for immediate fulfillment) 
-   - **Subtotal**: $42.50 (after a 15% discount). Partial fulfillment is possible with 270 sheets.
+- **50 packets of 100% recycled kraft paper envelopes**
+  - Price: $5.00 (no bulk discount)
+  - Estimated delivery: April 8, 2025
+
+Your total order will arrive between April 8 and April 11, 2025. Thank you for choosing us for your paper supply needs!"
+13,2025-04-08,45808.310000000005,4113.299999999999,"Your order is ready! Here are the details:
+
+### Order Summary:
+- **A4 Printing Paper**:
+  - Quantity: 500 sheets
+  - Total: $22.50 (after 10% bulk discount)
+- **Cardstock**:
+  - Quantity: 200 sheets
+  - Total: $28.50 (after 5% bulk discount)
+
+### Grand Total:
+- **Total for both items:** $51.00
+
+### Delivery Estimates:
+- **A4 Printing Paper:** Will be included in the shipment with a current stock availability, delivery by your requested date.
+- **Cardstock:** Estimated delivery date is **April 12, 2025**.
+
+Your order has been fulfilled for the cardstock, and the A4 printing paper will be shipped alongside. Thank you for your order!"
+12,2025-04-08,46910.060000000005,2899.0499999999997,"Thank you for your order! Here's a summary of what we've arranged for your upcoming party:
+
+1. **100 Table Covers** - Estimated delivery: **April 9, 2025**  
+   **Total Cost**: $142.50 (after bulk discount)
+
+2. **95 Sheets of Colorful Cardstock** - Estimated delivery: **April 9, 2025**  
+   **Total Cost**: $14.25 (after bulk discount)
+
+Additionally, I'm sorry to inform you that there were no paper napkins available. As an alternative, we could substitute with **100 Paper Plates**, which have also been arranged. 
+   - **Estimated Delivery** for Paper Plates: **April 12, 2025**
+   - **Total Cost**: $9.50 (after bulk discount)
+
+If you're satisfied with these arrangements or need any more modifications, just let us know! Your estimated delivery dates for table covers and cardstock are fast approaching."
+10,2025-04-08,46865.21000000001,2941.65,"Thank you for your order! Here’s the summary:
+
+1. **High-Quality Glossy Paper**:
+   - Ordered: 500 sheets (only 287 in stock, so 213 sheets will be fulfilled)
+   - **Total Price**: $90.00 (after a 10% discount)
+   - **Fulfillment**: 213 sheets will arrive by April 12, 2025.
+
+2. **Sturdy Cardstock**:
+   - Ordered: 300 sheets (currently out of stock, reorder initiated)
+   - **Total Price**: $42.75 (after a 5% discount)
+   - **Fulfillment**: 300 sheets expected by April 12, 2025.
+
+**Overall Total**: $132.75
+
+You'll receive an email confirmation shortly. If you have any questions or need further assistance, feel free to reach out!"
+11,2025-04-08,46893.71000000001,2911.65,"Thank you for your order! 
+
+Here are the details:
+- **A3 Glossy Paper**: 
+  - Quantity: 500 sheets 
+  - Unit Price: $0.20 per sheet 
+  - Total: $90.00 after a 10% bulk discount.
+
+- **A4 Matte Paper**: 
+  - Quantity: 300 sheets 
+  - Unit Price: $0.05 per sheet 
+  - Total: $14.25 after a 5% bulk discount.
+
+Both orders will be delivered by **April 12, 2025**. 
+
+If you have any further questions or need additional supplies, feel free to reach out!"
+14,2025-04-09,47147.26000000001,2634.15,"Thank you for your order! Here's the summary of your paper supply request:
+
+1. **A4 Paper** (1570 sheets available): 
+   - Total after discount: **$212.50** 
+   - Estimated delivery: **April 16, 2025**
+
+2. **Poster Paper** (199 sheets): 
+   - Total after discount: **$1700.00** 
+   - Estimated delivery: **April 13, 2025**
+
+3. **Cardstock** (296 sheets ordered): 
+   - Total after discount: **$67.50** 
+   - Estimated delivery: **April 13, 2025**
+
+### Overall Total: **$1980.00**
+
+Please note that while we will fulfill your order partially with the available stock, the A4 paper is below your requested quantity, and the remaining sheets are currently out of stock. Thank you for your understanding, and we look forward to delivering your supplies!"
+15,2025-04-12,47365.51000000001,2390.9,"Dear Customer,
+
+Thank you for your order request for high-quality paper supplies for your upcoming demonstration. Here’s a summary of what we can provide:
+
+1. **A4 White Paper**: 
+   - Quantity: 10,000 sheets  
+   - Total Cost: **$425.00** (including 15% bulk discount)  
+   - Note: Unfortunately, we currently have only **-30** sheets in stock, and a reorder for **165 sheets** is confirmed with an estimated delivery of **April 16, 2025**.
 
 2. **A3 Colored Paper**: 
-   - **Requested**: 500 sheets 
-   - **Fulfilled**: 500 sheets
-   - **Delivery Date**: April 18, 2025 
-   - **Total Cost**: TBD
+   - Quantity: 5,000 sheets  
+   - Total Cost: **$425.00** (including 15% bulk discount)  
+   - However, we currently have only **286 sheets** in stock, with an estimated delivery of the remainder on **April 19, 2025**.
 
-3. **Table Napkins**: 
-   - **Requested**: 2000 napkins 
-   - **Current Stock**: Insufficient for immediate fulfillment. Suggest alternate supplier or partial fulfillment if needed.
+3. **Cardboard for Signage**: 
+   - Quantity: 500 sheets (substituted with 100 lb cover stock and cardstock)  
+   - Total Cost: **$292.50** (including bulk discounts).  
+   - Note: Currently not available; however, **100 lb cover stock** can fulfill the cardboard need with an estimated delivery on **April 16, 2025**.
 
-4. **Paper Cups (Biodegradable)**: 
-   - **Requested**: 1000 cups 
-   - **Delivery Status**: Price unavailable; recommend following up for an updated quote. Substitute items can also be considered.
+**Overall Estimated Total**: **$1,142.50** 
 
-5. **Paper Plates (Biodegradable)**:
-   - **Requested**: 500 plates
-   - **Fulfilled**: 500 plates
-   - **Delivery Date**: April 18, 2025 
-   - **Total Cost**: $45.00 (after 10% discount)
+Please note that the delivery dates for some items are after your requested delivery date of April 15, 2025. We can partially fulfill your order with the available items, or you may choose to wait for the complete restock.
 
-We have fulfilled your order for 500 A3 colored paper and 500 paper plates, which will be delivered by April 18, 2025. Unfortunately, the order for 1000 sheets of A4 white printer paper is partially unable to fulfill due to low stock. However, you have the option to fulfill the order partially, receiving 270 sheets at a discounted price of $42.50, or we can explore alternative suppliers for the remaining 730 sheets.  We also note that there was insufficient stock on napkins and cups; you may wish to consider alternative suppliers or adjust your order.
+Let us know how you wish to proceed! 
 
-Please let me know how you would like to proceed!
+Best regards,
+Munder Difflin Customer Service Team"
+16,2025-04-13,47193.92000000001,2562.15,"Dear Customer,
+
+Thank you for your order request! Here’s a summary of the supplies you requested:
+
+1. **A4 Printer Paper**: You requested 500 sheets, but we currently have only 135 sheets available. Your order for 135 sheets will be fulfilled, and it is estimated to be delivered by **April 17, 2025**. 
+   - **Total Cost**: $22.50 (after a 10% bulk discount).
+
+2. **Colorful Construction Paper**: We have 200 sheets available, and your order will be fulfilled as requested.
+   - **Total Cost**: $19.00 (after a 5% bulk discount).
+
+3. **Poster Board**: Unfortunately, we do not have any poster board in stock (0 sheets available). As an alternative, we suggest 'Large Poster Paper (24x36 inches)', which is now back in stock with 178 sheets available, but we will not be placing an order for poster board since it is not available.
+   - **Total Cost for Poster Paper**: $95.00 (if you were to order, but it's out of stock).
+
+**Total Estimated Cost** for items we can fulfill (A4 and colored paper): **$41.50.**
+
+Please confirm if you would like to proceed with this order or if you would like to make any adjustments.
+
+Thank you for choosing us for your supply needs! 
 
 Best regards,
 Munder Difflin Customer Service"
-18,2025-04-14,46241.27999999999,3608.5499999999997,"Thank you for your request for paper supplies for the upcoming ceremony. Here is a summary of your order request and the current situation:
+17,2025-04-14,47145.52000000001,2610.5499999999997,"Dear Customer,
 
-1. **Colored Paper**: 
-   - **Quantity**: 200 sheets
-   - **Price**: $19.00 (after 5% discount)
-   - **Status**: Order fulfilled successfully, delivery is estimated for April 14, 2025.
+Thank you for your request for paper supplies for your upcoming reception. Here’s the summary of your order along with current stock and pricing details:
 
-2. **High-Quality White Cardstock**: 
-   - **Quantity**: 500 sheets
-   - **Status**: Out of stock, expected to be available on April 18, 2025, which is after your requested delivery date. Unfortunately, we cannot fulfill this part of your order.
-   - **Price**: $28.50 (after 5% discount)
+1. **A4 White Printer Paper**: 
+   - Required: 1000 sheets 
+   - Current Stock: 540 sheets 
+   - Additional Order Needed: 460 sheets 
+   - Quote: $42.50 (after 15% discount)
 
-3. **Standard Printing Paper**: 
-   - **Quantity**: 1000 sheets
-   - **Status**: Currently out of stock, and therefore cannot be fulfilled.
-   - **Price**: Not available.
+2. **A3 Colored Paper (Assorted Colors)**: 
+   - Required: 500 sheets
+   - Current Stock: 286 sheets 
+   - Additional Order Needed: 214 sheets 
+   - Quote: $45.00 (after 10% discount)
+   - ETA for additional stock: April 18, 2025.
 
-### Conclusion:
-While we can deliver the colored paper on time, we are unable to provide the high-quality white cardstock and standard printing paper due to stock limitations. If you would like to proceed with your order for the colored paper only or explore alternative options for cardstock and printing paper, please let us know."
-19,2025-04-15,46239.06,3608.5499999999997,"Dear Customer,
+3. **Table Napkins (White)**: 
+   - Required: 2000 napkins 
+   - Unfortunately, we do not have this item available, and similar items (table covers) are not in stock either. We recommend considering an alternative, as we cannot fulfill this part of your order.
+   - Quote for Table Covers: $2550.00 (after 15% discount) 
 
-Thank you for your order request for the upcoming exhibition. Here is the summary of your order:
+4. **Biodegradable Paper Cups**:
+   - Required: 1000 cups 
+   - Unfortunately, biodegradable cups are currently out of stock. We referred to paper plates for pricing, which are also not sufficient to meet your requirement. 
+   - Quote for Paper Plates: $85.00 (after 15% discount), but we cannot fulfill this.
 
-1. **A4 Glossy Paper (2000 sheets)**: 
-   - **Total Price**: $340.00 (15% bulk discount applied)
-   - **Status**: Order is fulfilled and will be delivered by April 20, 2025.
+5. **Paper Plates (Biodegradable)**: 
+   - Current Stock: 248 units, which is insufficient for your request.
 
-2. **A3 Matte Paper (1500 sheets)**: 
-   - **Total Price**: $637.50 (15% bulk discount applied)
-   - **Status**: Unfortunately, this item is currently out of stock and we cannot fulfill the order at this time. Please consider alternatively using a different size or type.
+In summary, we can fulfill your order for A4 paper at $42.50, and A3 colored paper at $45. The table napkins and biodegradable cups are currently unavailable. You may want to consider alternatives or partial fulfillment for other items.
 
-3. **Cardstock in Assorted Colors (1000 sheets)**: 
-   - **Status**: We have placed a reorder for 296 sheets of cardstock due to no available stock. The estimated delivery for this reorder is April 19, 2025. However, 1000 sheets requested cannot be fulfilled due to a shortfall.
-   - **Total Price for Reorder**: $42.18 (for 296 sheets)
-
-### Summary
-- The total for A4 glossy paper is $340.00.
-- For A3 matte paper, an alternative option is needed, as it is out of stock.
-- Your cardstock reorder is in place but will fulfill only part of your request due to stock limitations.
-
-If you would like to explore other options for the A3 matte paper or if you have any other questions, please let us know. 
-
-Thank you for understanding!
-
-Best regards,
-Munder Difflin Customer Service."
-20,2025-04-17,46119.06,3728.5499999999997,"Dear Customer,
-
-Thank you for your order request. Here are the details for your large order of paper supplies for the upcoming concert:
-
-1. **Flyers (5000 units)**
-   - Price: $1700.00 (Not currently in stock; 249 units available)
-   - Alternative available: **100 lb cover stock** (ordered 34 units, ETA: 2025-04-18)
-
-2. **Posters (2000 units)**
-   - Price: $850.00 (Not currently in stock, **ordered 89 units**, ETA: 2025-04-18)
-   - Alternative available: **Large poster paper (24x36 inches)**
-
-3. **Tickets (10000 units)**
-   - Price: $1275.00 (Not currently in stock)
-
-**Grand Total for all items:** $3825.00
-
-Given the current stock unavailability, I've ordered additional units to fulfill your request promptly. Please note that while the expected delivery for the reordered items is shortly after your request (by May 15, 2025), we will contact you if any issues arise in fulfilling your order.
-
-Thank you for choosing us for your paper supply needs! 
+Please let us know how you would like to proceed with your order.
 
 Best regards,
 Munder Difflin Customer Service"
+18,2025-04-14,47084.12000000001,2671.95,"Hello! Thank you for your order request for the upcoming ceremony. Here is a summary of your order and the current stock details:
+
+1. **High-Quality White Cardstock:**
+   - Quantity: 500 sheets
+   - Total: **$67.50** (including bulk discount)
+   - **Note:** This item is currently out of stock, but we have ordered 296 sheets, which will arrive by 2025-04-18.
+
+2. **Standard Printing Paper:**
+   - **Note:** Unfortunately, we do not have standard printing paper available. You may choose an alternative such as 'A4 paper' or '80 lb text paper'. Please confirm which option you prefer.
+
+3. **Colored Paper (Assorted Colors):**
+   - Quantity: 200 sheets
+   - Total: **$19.00** (including bulk discount)
+   - In stock and confirmed for delivery.
+
+**Delivery Timeline:** Your colored paper is available for delivery by April 15, 2025, while the cardstock will follow shortly after on April 18, 2025.
+
+Please let us know your preference for the standard printing paper alternative so we can finalize your order!"
+19,2025-04-15,46929.119999999995,2804.4500000000003,"Dear Customer,  
+
+Thank you for your order request. We have successfully processed the order for **1000 sheets of cardstock in assorted colors**, which will be delivered by **April 19, 2025**. The total cost for this item is **$127.50**, including a 15% bulk discount.  
+
+Unfortunately, we currently do not have enough stock to fulfill your request for **2000 sheets of A4 glossy paper** and **1500 sheets of A3 matte paper**.  
+
+The stock levels are insufficient for the A4 glossy paper, and we cannot provide substitutes for the A3 matte paper as none are available in adequate quantities. As an alternative, we recommend considering other paper types available in sufficient stock, such as **A4 paper (540 sheets)** or **colored paper** if that would suit your needs.  
+
+Please let us know if you'd like to adjust your order or if you have any other questions.  
+
+Best regards,  
+Munder Difflin Customer Service"
+20,2025-04-17,46929.119999999995,2804.4500000000003,"Thank you for your order request! Here’s the summary of our findings regarding your order for paper supplies:
+
+1. **Flyers (5,000 units)**:
+   - Unfortunately, we do not have this item in stock. 
+
+2. **Posters (2,000 units)**:
+   - Unit Price: $1.00 each
+   - Total: $1,700.00 (after bulk discount)
+   - Stock Status: Available
+
+3. **Tickets (10,000 units)**:
+   - We are currently unable to confirm pricing for this item as it is not in stock. Note that this item may require a specific paper type for printing.
+
+**Total for available items (posters only): $1,700.00**
+
+Given that flyers and tickets are not in stock, I recommend considering alternative options such as different sizes or types of flyers/posters. Please let us know how you would like to proceed, and we can confirm any additional orders or adjustments needed to meet your deadline of May 15, 2025."

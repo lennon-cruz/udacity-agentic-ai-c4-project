@@ -1118,6 +1118,127 @@ class FulfillmentAgent(ToolCallingAgent):
         return str(self.run(prompt))
 
 
+# Patterns that should not appear in customer-facing text.
+_INTERNAL_RESPONSE_PATTERNS = [
+    (r"\(transaction\s*\d+\)", ""),
+    (r"\btransaction\s+(?:id\s*)?#?\d+\b", "", re.IGNORECASE),
+    (r"\bTransaction ID:?\s*\d+\b", "", re.IGNORECASE),
+    (r"Stock order placed:[^\n]*\n?", ""),
+    (r"\bsuggested_reorder_quantity\b[^\n]*", ""),
+    (r"\bmin_stock_level\b[^\n]*", ""),
+    (r"\bcash_balance\b[^\n]*", ""),
+    (r"\(mapped\s+'[^']+'\s+to\s+'[^']+'\)", ""),
+    (r"\bneeds_reorder\b[^\n]*", ""),
+    (r"FUNC\s*\([^)]+\):[^\n]*\n?", ""),
+    (r"WARN\s*\([^)]+\):[^\n]*\n?", ""),
+    (r"\bget_financial_snapshot\b", ""),
+    (r"\binternal\b", "", re.IGNORECASE),
+]
+
+_STRONG_FULFILLMENT_CLAIMS = re.compile(
+    r"\b(successfully fulfilled|order complete|fully fulfilled|"
+    r"all items (?:have been )?(?:fulfilled|delivered|shipped)|"
+    r"your (?:entire |complete )?order (?:has been )?fulfilled)\b",
+    re.IGNORECASE,
+)
+
+_FULFILLMENT_CLAIM_REPLACEMENTS = [
+    (
+        r"successfully fulfilled your entire order",
+        "could not fully fulfill your entire order",
+    ),
+    (r"all items (?:have been )?(?:fulfilled|delivered|shipped)", "some items could not be fully supplied"),
+    (
+        r"your (?:entire |complete )?order (?:has been )?fulfilled",
+        "your order was only partially fulfilled",
+    ),
+    (r"successfully fulfilled", "processed"),
+    (r"fully fulfilled", "partially fulfilled"),
+    (r"order complete", "order partially processed"),
+]
+
+
+def filter_customer_response(text: str) -> str:
+    """Remove internal operational details from text shown to customers."""
+    if not text:
+        return text
+
+    filtered = text
+    for pattern in _INTERNAL_RESPONSE_PATTERNS:
+        flags = pattern[2] if len(pattern) > 2 else 0
+        filtered = re.sub(pattern[0], pattern[1], filtered, flags=flags)
+
+    # Drop lines that are only internal reorder / supplier process notes.
+    cleaned_lines = []
+    for line in filtered.splitlines():
+        lower = line.lower()
+        if any(
+            phrase in lower
+            for phrase in (
+                "stock order placed",
+                "reorder needed",
+                "does not require a reorder",
+                "supplier eta",
+                "restock eta",
+            )
+        ):
+            continue
+        cleaned_lines.append(line)
+
+    filtered = "\n".join(cleaned_lines)
+    filtered = re.sub(r"\n{3,}", "\n\n", filtered)
+    return filtered.strip()
+
+
+def validate_customer_response(response: str, tool_outputs: List[str]) -> str:
+    """
+    Align customer-facing fulfillment language with specialist tool outcomes.
+    """
+    if not response:
+        return response
+
+    combined = "\n".join(tool_outputs)
+    combined_lower = combined.lower()
+
+    fulfilled_count = combined_lower.count("order fulfilled:")
+    blocked_count = combined_lower.count("cannot fulfill")
+    partial_stock = "only " in combined_lower and " in stock" in combined_lower
+
+    adjusted = response
+
+    if blocked_count > 0 and _STRONG_FULFILLMENT_CLAIMS.search(adjusted):
+        if fulfilled_count == 0:
+            prefix = (
+                "We could not complete the full order because some items are "
+                "out of stock or unavailable. "
+            )
+        else:
+            prefix = (
+                "We partially fulfilled your order. Some items were limited "
+                "by available stock. "
+            )
+        if not adjusted.startswith(prefix):
+            adjusted = prefix + adjusted
+
+        for pattern, replacement in _FULFILLMENT_CLAIM_REPLACEMENTS:
+            adjusted = re.sub(pattern, replacement, adjusted, flags=re.IGNORECASE)
+
+    if partial_stock and re.search(
+        r"\b(all (?:items )?available|everything is in stock)\b",
+        adjusted,
+        re.IGNORECASE,
+    ):
+        adjusted = re.sub(
+            r"\b(all (?:items )?available|everything is in stock)\b",
+            "some items have limited stock",
+            adjusted,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+
+    return adjusted
+
+
 class Orchestrator(ToolCallingAgent):
     """Coordinates inventory, quoting, and fulfillment specialists."""
 
@@ -1202,6 +1323,20 @@ class Orchestrator(ToolCallingAgent):
                     return str(step.observations)
         return "Thank you for contacting Munder Difflin. We are reviewing your request."
 
+    def _collect_tool_observations(self) -> List[str]:
+        """Gather specialist tool outputs from this request's agent memory."""
+        observations = []
+        for step in self.memory.steps:
+            if hasattr(step, "observations") and step.observations is not None:
+                observations.append(str(step.observations))
+        return observations
+
+    def _prepare_customer_response(self, raw_response: str) -> str:
+        """Validate claims against tools, then filter internal details."""
+        tool_outputs = self._collect_tool_observations()
+        validated = validate_customer_response(raw_response, tool_outputs)
+        return filter_customer_response(validated)
+
     def handle_customer_request(self, request_with_date: str) -> str:
         """Process a customer request and return a single customer-facing reply."""
         date_match = re.search(
@@ -1230,14 +1365,17 @@ class Orchestrator(ToolCallingAgent):
         3. For stock/availability → consult_inventory_agent.
         4. For confirmed orders → consult_inventory_agent first, then consult_fulfillment_agent.
         5. If stock is low, inventory may reorder; then quote or fulfill as appropriate.
-        6. Some items may be unavailable—explain clearly with alternatives or partial fulfillment.
-        7. Do not reveal internal profit margins or raw system errors.
+        6. Some items may be unavailable. Explain clearly with alternatives or partial fulfillment.
+        7. Do not reveal internal profit margins, transaction IDs, reorder processes, or raw system errors.
+        8. Do not say an order is fully fulfilled unless tools confirmed fulfillment for every line.
 
         Provide one helpful customer-facing reply using the final_answer tool.
         Include prices, delivery estimates, and brief rationale (e.g. bulk discounts).
+        Use plain customer language only (no transaction IDs or internal stock procedures).
         """
         self.run(prompt)
-        return self._extract_final_answer()
+        raw_response = self._extract_final_answer()
+        return self._prepare_customer_response(raw_response)
 
 
 # Run your test scenarios by writing them here. Make sure to keep track of them.
