@@ -1,0 +1,51 @@
+%% Munder Difflin Multi-Agent System - Workflow Diagram
+
+flowchart TB
+    subgraph External["External"]
+        Customer[Customer]
+        Database[(SQLite Database)]
+        Supplier[Supplier API - get_supplier_delivery_date]
+    end
+
+    subgraph Agents["Agents"]
+        Orchestrator[Orchestrator - routes inquiries and coordinates specialists]
+        InventoryAgent[Inventory Agent - stock levels and reorders]
+        QuotingAgent[Quoting Agent - pricing, discounts, and quote history]
+        FulfillmentAgent[Fulfillment Agent - sales transactions and delivery]
+    end
+
+    subgraph InventoryTools["Inventory Tools"]
+        CheckStock[Check Item Stock - get_stock_level]
+        ListInventory[List Available Inventory - get_all_inventory]
+        CheckReorder[Check Reorder Needed - get_stock_level and inventory table]
+        PlaceStockOrder[Place Stock Order - create_transaction stock_orders]
+    end
+
+    subgraph QuotingTools["Quoting Tools"]
+        QuoteHistory[Get Quote History - search_quote_history]
+        UnitPrice[Get Unit Price - inventory table and paper_supplies]
+        CalculateQuote[Calculate Quote - app logic bulk discounts]
+    end
+
+    subgraph FulfillmentTools["Fulfillment Tools"]
+        DeliveryTimeline[Get Delivery Timeline - get_supplier_delivery_date]
+        CanFulfill[Check Can Fulfill - get_stock_level and get_cash_balance]
+        FulfillOrder[Fulfill Order - create_transaction sales]
+        CashBalance[Get Cash Balance - get_cash_balance]
+    end
+
+    Customer -->|request with date| Orchestrator
+    Orchestrator -->|delegate| InventoryAgent
+    Orchestrator -->|delegate| QuotingAgent
+    Orchestrator -->|delegate| FulfillmentAgent
+    InventoryAgent --> InventoryTools
+    QuotingAgent --> QuotingTools
+    FulfillmentAgent --> FulfillmentTools
+    InventoryTools --> Database
+    QuotingTools --> Database
+    FulfillmentTools --> Database
+    PlaceStockOrder --> Database
+    FulfillOrder --> Database
+    DeliveryTimeline --> Supplier
+    CheckReorder --> Supplier
+    Orchestrator -->|response to customer| Customer
