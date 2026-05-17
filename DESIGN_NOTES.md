@@ -84,8 +84,8 @@ All required starter helpers are used in tools:
 
 | Metric                    | Value      |
 | ------------------------- | ---------- |
-| Cash after request 1      | $45,116.70 |
-| Cash after request 20     | $46,119.06 |
+| Cash after request 1      | $45,121.45 |
+| Cash after request 20     | $46,929.12 |
 | Requests with cash change | 16 of 20   |
 | Starting seed (DB)        | $50,000.00 |
 
@@ -97,7 +97,7 @@ Cash went down from the initial seed because of stock purchases and partial sale
 
 | Pattern                                            | Approx. count (keyword scan) |
 | -------------------------------------------------- | ---------------------------- |
-| Responses mentioning fulfillment                   | 14                           |
+| Responses mentioning fulfillment                   | 15                           |
 | Responses mentioning stock limits / cannot fulfill | 13                           |
 | Responses with pricing / totals                    | 20                           |
 
@@ -119,7 +119,7 @@ Cash went down from the initial seed because of stock purchases and partial sale
 
 ### 3.4 Areas for improvement
 
-1. **Final answer vs tool truth**: the orchestrator LLM sometimes says "fulfilled" while tools reported low stock or missing items (e.g. request 1: partial pricing, request 8: mixed fulfill/pending language).
+1. **Final answer vs tool truth**: the response filter reduces internal leakage and some overconfident fulfillment language, but final answers can still drift from tool/catalog truth in edge cases (e.g. request 8 references fulfilled "A5 Colored Paper", which is not an exact catalog item).
 2. **Invented catalog items**: occasional references to products not in `paper_supplies` (e.g. "A5 paper", balloons).
 3. **Cost and latency**: each specialist is a full LLM call; 20 requests took ~14 minutes with heavy token use.
 4. **Non-deterministic routing**: the orchestrator decides which specialist to call; there is no hard rule that fulfillment must follow a stock check.
@@ -208,5 +208,4 @@ Outputs: console logs, `test_results.csv`, updated `munder_difflin.db`.
 | `implementation_diagram.mmd` / `.png` | Workflow diagram                                      |
 | `test_results.csv`                    | Evaluation output                                     |
 | `DESIGN_NOTES.md`                     | This document: architecture, evaluation, improvements |
-
 
