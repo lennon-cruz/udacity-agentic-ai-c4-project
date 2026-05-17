@@ -1,0 +1,5 @@
+# Default owner for all files in this repository.
+# Pull requests that touch these paths will request review from @lennon-cruz.
+# Enable "Require review from Code Owners" in branch protection to enforce approval.
+
+* @lennon-cruz
